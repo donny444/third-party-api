@@ -1,12 +1,19 @@
 document.getElementById("form").addEventListener("submit", nameSubmit);
 
-async function nameSubmit(e) {
+async function submit(e) {
     e.preventDefault();
-    try {
-        const name = document.getElementById("input").value;
+    
+    const name = document.getElementById("input").value;
+    const url = `https://restcountries.com/v3.1/name/${name}`;
+    const options = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
 
-        const response = await fetch(`https://restcountries.com/v3.1/name/${name}`);
-        const data = response.json();
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
 
         for(i=0; i<data.length; i++) {
             const p = document.createElement("p");
