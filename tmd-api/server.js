@@ -1,14 +1,19 @@
+require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 const routes = require("./routes.js");
 
 const app = express();
 
 app.use("/", express.static("public"));
 
-app.use(express.urlencoded({ extended: true }));
-
 app.use(express.json());
+
+port = process.env.PORT;
+
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/tmd", routes);
 
-app.listen(5000, () => console.log("Server is running on port 5000"));
+app.listen(port, () => console.log(`Server is running on port ${port}`));
